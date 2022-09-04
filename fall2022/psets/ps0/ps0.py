@@ -8,6 +8,9 @@
 #
 # Setup
 #
+from typing import Counter
+
+
 class BinaryTree:
     def __init__(self, root):
         self.root: BTvertex = root
@@ -18,7 +21,7 @@ class BTvertex:
         self.left: BTvertex = None
         self.right: BTvertex = None
         self.key: int = key
-        self.size: int = None
+        self.size: int = int
 
 #
 # Problem 1a
@@ -31,7 +34,24 @@ class BTvertex:
 # Runtime: O(n)
 def calculate_sizes(v):
     # Your code goes here
-    pass
+    print("hi")
+    root = BTvertex(v)
+    root.size = 1
+    print(root.key)
+    print(root.right.key)
+    if (root.left):
+        counter += 1
+        root.size = counter
+        print(root.size)
+    elif (root.right):
+        counter += 1
+        root.size = counter
+        print (root.size)
+    else:
+        return root.size
+    
+    
+calculate_sizes(4)
 
 #
 # Problem 1c
