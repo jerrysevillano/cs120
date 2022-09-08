@@ -53,31 +53,17 @@ def calculate_sizes(v):
 # Output: A BTvertex that, if removed from the tree, would result
 # ... in disjoint trees that all have at most n/2 vertices
 # Runtime: O(h)
-def find_vertex(r): 
-    # Your code goes here
-    if r != 0:
-        tree_sz = r.size 
+
+def find_vertex(r):
+    if r is None:
+        return None
+    
+    L = 0 if not r.left else r.left.size
+    R = 0 if not r.right else r.right.size
+
+    if L > R:
+        return find_vertex(r.left)
+    elif R > L:
+        return find_vertex(r.right)
     else:
-        tree_sz = 0
-    def vertex_finder(r):
-        if r is None:
-            return r
-        if r.left != 0:
-            l_subtree_sz = r.left.size
-        else: 
-            l_subtree_sz = 0
-        if r.right != 0:
-            r_subtree_sz = r.right.size
-        else:
-            r_subtree_sz = 0
-        parent_subtree_sz = tree_sz - r.size
-        n = l_subtree_sz + r_subtree_sz + parent_subtree_sz + 1
-        if max(l_subtree_sz, r_subtree_sz, parent_subtree_sz) <= n/2:
-            return r
-        else:
-            if l_subtree_sz >= r_subtree_sz:
-                return vertex_finder(r.left)
-            else:
-                return vertex_finder(r.right)
-    return vertex_finder(r)
-   
+        return r
