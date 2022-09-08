@@ -8,7 +8,9 @@
 #
 # Setup
 #
-from typing import Counter
+
+
+#from turtle import left, right
 
 
 class BinaryTree:
@@ -21,7 +23,7 @@ class BTvertex:
         self.left: BTvertex = None
         self.right: BTvertex = None
         self.key: int = key
-        self.size: int = int
+        self.size: int = None
 
 #
 # Problem 1a
@@ -34,24 +36,13 @@ class BTvertex:
 # Runtime: O(n)
 def calculate_sizes(v):
     # Your code goes here
-    print("hi")
-    root = BTvertex(v)
-    root.size = 1
-    print(root.key)
-    print(root.right.key)
-    if (root.left):
-        counter += 1
-        root.size = counter
-        print(root.size)
-    elif (root.right):
-        counter += 1
-        root.size = counter
-        print (root.size)
-    else:
-        return root.size
+    if v == None:
+        return 0
+    v.size = calculate_sizes(v.left) + calculate_sizes(v.right) + 1
+    return(v.size)
+
+
     
-    
-calculate_sizes(4)
 
 #
 # Problem 1c
@@ -64,4 +55,29 @@ calculate_sizes(4)
 # Runtime: O(h)
 def find_vertex(r): 
     # Your code goes here
-    pass
+    if r != 0:
+        tree_sz = r.size 
+    else:
+        tree_sz = 0
+    def vertex_finder(r):
+        if r is None:
+            return r
+        if r.left != 0:
+            l_subtree_sz = r.left.size
+        else: 
+            l_subtree_sz = 0
+        if r.right != 0:
+            r_subtree_sz = r.right.size
+        else:
+            r_subtree_sz = 0
+        parent_subtree_sz = tree_sz - r.size
+        n = l_subtree_sz + r_subtree_sz + parent_subtree_sz + 1
+        if max(l_subtree_sz, r_subtree_sz, parent_subtree_sz) <= n/2:
+            return r
+        else:
+            if l_subtree_sz >= r_subtree_sz:
+                return vertex_finder(r.left)
+            else:
+                return vertex_finder(r.right)
+    return vertex_finder(r)
+   
