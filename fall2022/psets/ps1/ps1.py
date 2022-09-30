@@ -65,6 +65,7 @@ def countSort(univsize, arr):
 
     return sortedArr
 
+
 def BC(n, b, k):
     if b < 2:
         raise ValueError()
@@ -76,3 +77,16 @@ def BC(n, b, k):
         raise ValueError()
     return digits
 
+def RadixSort(U, b, A):
+    k = math.cell(math.log(U, 2)/math.log(b,2))
+    for i in range(len(A)):
+        A[i].append(BC(A[i][0], b, k))
+    for j in range(k) :
+        for i in range(len(A)):
+            A[i][0] = A[i][2][j]
+        A = countSort(b, A)
+    for i in range(len(A)):
+        A[i][0] = 0
+        for n in range (k):
+            A[i][0] = A[i][0] + A[i][2][n]*(b**n)
+    return A
